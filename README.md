@@ -1,1 +1,2 @@
-# js-stock-control-with-xlsx-database
+# JS stock control with xlsx database
+
