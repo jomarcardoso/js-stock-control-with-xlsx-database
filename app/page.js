@@ -16,7 +16,7 @@ export default function Home() {
           <li className="mb-2">
             Get started by editing{' '}
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
+              app/page.js
             </code>
             .
           </li>
@@ -96,14 +96,6 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-      <div
-        id="g_id_onload"
-        data-client_id="8694241740-u575k043bgd4khpblumlqctilbtrbk57.apps.googleusercontent.com"
-        data-context="signin"
-        data-auto_select="true"
-        data-itp_support="true"
-      ></div>
-      <script src="https://accounts.google.com/gsi/client" async></script>
     </div>
   );
 }
