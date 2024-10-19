@@ -1,25 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { GoogleLoginContext } from './google-login.context';
+import { useCallback, useEffect, useState, createContext } from 'react';
 
-// credentials
-// https://developers.google.com/workspace/guides/create-credentials
+export const GoogleLoginContext = createContext({});
 
-// sheets api
-// https://developers.google.com/sheets/api/guides/concepts
-
-// TODO(developer): Set to client ID and API key from the Developer Console
 const API_KEY = 'AIzaSyDTpv2UEpHxaftIQXXETkogbHZpeT5C480';
 const CLIENT_ID =
   '769211696215-h4sqth8dh20qp8b30noglr80ntcq6it2.apps.googleusercontent.com';
-const SPREADSHEET_ID = '1rdJUoPPaAXl7XmhPTVtymMEffrGudJ8yJ5dR90Neh74';
-// const spreadSheet = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit?gid=SHEET_ID#gid=SHEET_ID`;
-
-/* exported gapiLoaded */
-/* exported gisLoaded */
-/* exported handleAuthClick */
-/* exported handleSignoutClick */
 
 // Discovery doc URL for APIs used by the quickstart
 const DISCOVERY_DOC =
@@ -80,72 +67,6 @@ function maybeEnableButtons() {
   }
 }
 
-/**
- *  Sign in the user upon button click.
- */
-function handleAuthClick() {
-  tokenClient.callback = async (resp) => {
-    if (resp.error !== undefined) {
-      throw resp;
-    }
-    document.getElementById('signout_button').style.visibility = 'visible';
-    document.getElementById('authorize_button').innerText = 'Refresh';
-    await listMajors();
-  };
-
-  if (gapi.client.getToken() === null) {
-    // Prompt the user to select a Google Account and ask for consent to share their data
-    // when establishing a new session.
-    tokenClient.requestAccessToken({ prompt: 'consent' });
-  } else {
-    // Skip display of account chooser and consent dialog for an existing session.
-    tokenClient.requestAccessToken({ prompt: '' });
-  }
-}
-
-/**
- *  Sign out the user upon button click.
- */
-function handleSignoutClick() {
-  const token = gapi.client.getToken();
-  if (token !== null) {
-    google.accounts.oauth2.revoke(token.access_token);
-    gapi.client.setToken('');
-    document.getElementById('content').innerText = '';
-    document.getElementById('authorize_button').innerText = 'Authorize';
-    document.getElementById('signout_button').style.visibility = 'hidden';
-  }
-}
-
-/**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
- */
-async function listMajors() {
-  let response;
-  try {
-    // Fetch first 10 files
-    response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: 'estoque!A2:E',
-    });
-  } catch (err) {
-    document.getElementById('content').innerText = err.message;
-    return;
-  }
-  const range = response.result;
-  if (!range || !range.values || range.values.length == 0) {
-    document.getElementById('content').innerText = 'No values found.';
-    return;
-  }
-  // Flatten to string to display
-  const output = range.values.reduce(
-    (str, row) => `${str}${row[0]}, ${row[4]}\n`,
-    'Name, Major:\n',
-  );
-  document.getElementById('content').innerText = output;
-}
-
 function decodeJwtResponse(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -173,22 +94,44 @@ let alreadyLogIn = false;
 
 export function GoogleLogin({ children }) {
   const [user, setUser] = useState();
-  const [credential, setCredential] = useState();
+
+  const handleAuthClick = useCallback(() => {
+    tokenClient.callback = async (resp) => {
+      if (resp.error !== undefined) {
+        throw resp;
+      }
+
+      setUser(resp);
+
+      document.getElementById('signout_button').style.visibility = 'visible';
+      document.getElementById('authorize_button').innerText = 'Refresh';
+    };
+
+    if (gapi.client.getToken() === null) {
+      // Prompt the user to select a Google Account and ask for consent to share their data
+      // when establishing a new session.
+      tokenClient.requestAccessToken({ prompt: 'consent' });
+    } else {
+      // Skip display of account chooser and consent dialog for an existing session.
+      tokenClient.requestAccessToken({ prompt: '' });
+    }
+  }, []);
+
+  const handleSignoutClick = useCallback(() => {
+    const token = gapi.client.getToken();
+    if (token !== null) {
+      google.accounts.oauth2.revoke(token.access_token);
+      gapi.client.setToken('');
+      document.getElementById('content').innerText = '';
+      document.getElementById('authorize_button').innerText = 'Authorize';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+    }
+  }, []);
 
   useEffect(() => {
     if (alreadyLogIn) return;
 
     alreadyLogIn = true;
-
-    // google.accounts.id.initialize({
-    //   client_id: CLIENT_ID,
-    //   callback: handleCredentialResponse,
-    //   context: 'signin',
-    //   auto_select: 'true',
-    //   cancel_on_tap_outside: false,
-    //   itp_support: 'true',
-    // });
-    // google.accounts.id.prompt();
 
     setTimeout(() => {
       gapiLoaded();
@@ -196,11 +139,14 @@ export function GoogleLogin({ children }) {
     }, 4000);
   }, []);
 
-  return (
-    <GoogleLoginContext.Provider value={user} credential={credential}>
-      <p>Sheets API Quickstart</p>
+  useEffect(() => {
+    if (!user) return;
 
-      {/* Add buttons to initiate auth sequence and sign out */}
+    localStorage.setItem('login', JSON.stringify(user));
+  }, [user, setUser]);
+
+  return (
+    <GoogleLoginContext.Provider value={user}>
       <button
         id="authorize_button"
         style={{ visibility: 'hidden' }}
