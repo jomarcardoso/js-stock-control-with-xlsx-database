@@ -1,6 +1,6 @@
 export function Input({ label = '', ...props }) {
   return (
-    <div className="shadow p-4 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500 ">
+    <div className="shadow p-4 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500">
       <label
         className="block text-gray-700 text-lg mb-2 uppercase"
         htmlFor={props.id}

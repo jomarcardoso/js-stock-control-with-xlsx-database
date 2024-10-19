@@ -1,5 +1,6 @@
 import localFont from 'next/font/local';
 import './globals.css';
+import './theme.css';
 import { GoogleLogin } from './providers/google-login.provider';
 import { SheetsProvider } from './providers/sheets.provider';
 
