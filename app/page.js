@@ -4,6 +4,7 @@ import { InputNumber } from './components/input-number';
 import { useContext, useState } from 'react';
 import { SheetsContext } from './providers/sheets.provider';
 import { Item } from './components/item';
+import { Bar } from './components/bar';
 
 export default function Home() {
   const [quantity, setQuantity] = useState(0);
@@ -49,6 +50,8 @@ export default function Home() {
           ))}
         </tbody>
       </table>
+
+      <Bar />
 
       <Input id="product-name" label="nome do produto" />
       <InputNumber
