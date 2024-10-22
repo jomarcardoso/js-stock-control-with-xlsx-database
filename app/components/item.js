@@ -11,9 +11,9 @@ export function Item({ product, quantity, supplier, price, ...props }) {
       />
 
       <h3 className="text-xl font-semibold">{product}</h3>
-      <p>Quantity: {quantity}</p>
-      <p>Supplier: {supplier}</p>
-      <p>Price: {price}</p>
+      <p>quantidade: {quantity}</p>
+      <p>fornecedor: {supplier}</p>
+      <p>preço: {price}</p>
     </div>
   );
 }
