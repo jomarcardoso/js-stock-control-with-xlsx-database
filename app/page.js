@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { SheetsContext } from './providers/sheets.provider';
 import { Item } from './components/item';
 import { Bar } from './components/bar';
+import { ItemForm } from './components/item-form';
 
 const CurrentContext = createContext();
 
@@ -67,6 +68,8 @@ export default function Home() {
         </table>
 
         <Bar current={current} setCurrent={setCurrent} />
+
+        <ItemForm />
 
         <Input id="product-name" label="nome do produto" />
         <InputNumber
