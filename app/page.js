@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <CurrentContext.Provider value={{ current, setCurrent }}>
-      <div className="px-5">
+      <div className="px-5 pb-36">
         <ul className="grid gap-3">
           {rows.map((row, index) => (
             <li>

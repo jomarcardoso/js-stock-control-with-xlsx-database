@@ -33,15 +33,15 @@ body {
 
 @layer components {
   .input {
-    @apply caret-pink-700 border-2 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500;
+    @apply caret-pink-700 border-2 rounded-md w-full p-2 text-lg text-gray-700 leading-tight focus:outline-none focus:border-gray-500;
   }
 
   .label {
-    @apply block text-gray-700 text-lg mb-2 uppercase;
+    @apply block text-gray-700 text-base font-bold mb-1 uppercase;
   }
 
   .form-control {
-    @apply shadow p-4 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500;
+    @apply shadow p-3 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500;
   }
 
   .button-control {
