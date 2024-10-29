@@ -26,7 +26,7 @@ export function ItemForm({ item: initialItem = {} }) {
       <div className="col-span-2">
         <Select label="fornecedor" />
       </div>
-      <InputNumber value={price} setValue={setPrice} label="quantidade" />
+      <Input value={price} setValue={setPrice} label="preço" />
     </div>
   );
 }

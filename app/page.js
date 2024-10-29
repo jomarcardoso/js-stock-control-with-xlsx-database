@@ -70,14 +70,6 @@ export default function Home() {
         <Bar current={current} setCurrent={setCurrent} />
 
         <ItemForm />
-
-        <Input id="product-name" label="nome do produto" />
-        <InputNumber
-          id="product-quantity"
-          label="quantidade"
-          value={quantity}
-          setValue={setQuantity}
-        />
       </div>
     </CurrentContext.Provider>
   );
