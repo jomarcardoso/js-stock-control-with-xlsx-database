@@ -2,18 +2,22 @@
 import { Input } from './components/input';
 import { InputNumber } from './components/input-number';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { SheetsContext } from './providers/sheets.provider';
+import { StockSheetsContext } from './providers/stock-sheets.provider';
 import { Item } from './components/item';
 import { Bar } from './components/bar';
 import { ItemForm } from './components/item-form';
+import { SupplierSheetsContext } from './providers/supplier-sheets.provider';
 
 const CurrentContext = createContext();
 
 export default function Home() {
   const [quantity, setQuantity] = useState(0);
-  const { values = [] } = useContext(SheetsContext);
+  const { values = [] } = useContext(StockSheetsContext);
   const [current, setCurrent] = useState();
   const [editingItem, setEditingItem] = useState();
+  const { values: suppliers = [] } = useContext(SupplierSheetsContext);
+
+  console.log(suppliers);
 
   const rows = Array.isArray(values) ? values : [];
 
@@ -26,7 +30,7 @@ export default function Home() {
   return (
     <CurrentContext.Provider value={{ current, setCurrent }}>
       <div className="px-5 pb-36">
-        <ul className="grid gap-3">
+        <ul className="grid gap-2">
           {rows.map((row, index) => (
             <li>
               <Item

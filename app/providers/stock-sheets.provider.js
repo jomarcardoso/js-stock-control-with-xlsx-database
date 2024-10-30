@@ -3,11 +3,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { GoogleLoginContext } from './google-login.provider';
 
-export const SheetsContext = createContext({});
+export const StockSheetsContext = createContext({});
 
 const SPREADSHEET_ID = '1medi4MSrVKLXKm6TYT62zFMTftt99D40Nwxv_xB6NTY';
 
-export function SheetsProvider({ children }) {
+export function StockSheetsProvider({ children }) {
   const user = useContext(GoogleLoginContext);
   const [sheets, setSheets] = useState([]);
 
@@ -41,6 +41,8 @@ export function SheetsProvider({ children }) {
   }, [user]);
 
   return (
-    <SheetsContext.Provider value={sheets}>{children}</SheetsContext.Provider>
+    <StockSheetsContext.Provider value={sheets}>
+      {children}
+    </StockSheetsContext.Provider>
   );
 }

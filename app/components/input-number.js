@@ -10,7 +10,7 @@ export function InputNumber({ label = '', setValue, ...props }) {
       <label className="label" htmlFor={props.id}>
         {label}
       </label>
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <button
           onClick={() => setValue((inputRef.current.valueAsNumber || 0) - 1)}
           className="button-control rounded-l-md"

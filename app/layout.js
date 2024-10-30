@@ -2,7 +2,8 @@ import localFont from 'next/font/local';
 import './globals.css';
 import './theme.css';
 import { GoogleLogin } from './providers/google-login.provider';
-import { SheetsProvider } from './providers/sheets.provider';
+import { StockSheetsProvider } from './providers/stock-sheets.provider';
+import { SupplierSheetsProvider } from './providers/supplier-sheets.provider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -27,7 +28,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <GoogleLogin>
-          <SheetsProvider>{children}</SheetsProvider>
+          <SupplierSheetsProvider>
+            <StockSheetsProvider>{children}</StockSheetsProvider>
+          </SupplierSheetsProvider>
         </GoogleLogin>
       </body>
     </html>

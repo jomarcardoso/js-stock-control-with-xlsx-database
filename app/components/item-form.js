@@ -18,7 +18,7 @@ export function ItemForm({ item: initialItem = {} }) {
   const [supplier, setSupplier] = useState(initialItem.supplier || '');
 
   return (
-    <div className="grid grid-cols-3 gap-3 shadow p-3 rounded-lg border-2 bg-white has-[input:checked]:border-pink-500 relative">
+    <div className="grid grid-cols-3 gap-2 shadow p-2 rounded-lg border-2 bg-white has-[input:checked]:border-pink-500 relative">
       <div className="col-span-2">
         <Input label="nome do produto" />
       </div>
