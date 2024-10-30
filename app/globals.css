@@ -41,7 +41,7 @@ body {
   }
 
   .form-control {
-    @apply shadow p-3 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500;
+    @apply shadow p-3 rounded-lg border-2 bg-gray-100 has-[input:focus]:border-pink-500 has-[select:focus]:border-pink-500 has-[button:focus]:border-pink-500;
   }
 
   .button-control {

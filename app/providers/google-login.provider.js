@@ -102,6 +102,7 @@ export function GoogleLogin({ children }) {
       }
 
       setUser(resp);
+      localStorage.setItem('token', JSON.stringify(gapi.client.getToken()));
 
       document.getElementById('signout_button').style.visibility = 'visible';
       document.getElementById('authorize_button').innerText = 'Refresh';
@@ -136,14 +137,19 @@ export function GoogleLogin({ children }) {
     setTimeout(() => {
       gapiLoaded();
       gisLoaded();
-    }, 4000);
+    }, 3000);
+
+    setTimeout(() => {
+      const jsonToken = localStorage.getItem('token');
+
+      if (jsonToken) {
+        const token = JSON.parse(jsonToken);
+
+        gapi.client.setToken(token);
+        setUser(token);
+      }
+    }, 5000);
   }, []);
-
-  useEffect(() => {
-    if (!user) return;
-
-    localStorage.setItem('login', JSON.stringify(user));
-  }, [user, setUser]);
 
   return (
     <GoogleLoginContext.Provider value={user}>
