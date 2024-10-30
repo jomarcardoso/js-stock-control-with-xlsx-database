@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState, createContext } from 'react';
+import { useCallback, useEffect, useState, createContext, useRef } from 'react';
 
 export const GoogleLoginContext = createContext({});
 
@@ -17,55 +17,9 @@ const DISCOVERY_DOC =
 const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
 let tokenClient;
-let gapiInited = false;
-let gisInited = false;
 
 // document.getElementById('authorize_button').style.visibility = 'hidden';
 // document.getElementById('signout_button').style.visibility = 'hidden';
-
-/**
- * Callback after api.js is loaded.
- */
-function gapiLoaded() {
-  console.log('gapiLoaded');
-  gapi.load('client', initializeGapiClient);
-}
-
-/**
- * Callback after the API client is loaded. Loads the
- * discovery doc to initialize the API.
- */
-async function initializeGapiClient() {
-  await gapi.client.init({
-    apiKey: API_KEY,
-    discoveryDocs: [DISCOVERY_DOC],
-  });
-  gapiInited = true;
-  maybeEnableButtons();
-}
-
-/**
- * Callback after Google Identity Services are loaded.
- */
-function gisLoaded() {
-  console.log('gisLoaded');
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID,
-    scope: SCOPES,
-    callback: console.log, // defined later
-  });
-  gisInited = true;
-  maybeEnableButtons();
-}
-
-/**
- * Enables user interaction after all libraries are loaded.
- */
-function maybeEnableButtons() {
-  if (gapiInited && gisInited) {
-    document.getElementById('authorize_button').style.visibility = 'visible';
-  }
-}
 
 function decodeJwtResponse(token) {
   var base64Url = token.split('.')[1];
@@ -94,6 +48,65 @@ let alreadyLogIn = false;
 
 export function GoogleLogin({ children }) {
   const [user, setUser] = useState();
+  const [gapiInited, setGapiInited] = useState(false);
+  const [gisInited, setGisInited] = useState(false);
+  const gapiRef = useRef();
+  const gisRef = useRef();
+
+  /**
+   * Callback after Google Identity Services are loaded.
+   */
+  const gisLoaded = useCallback(() => {
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: console.log, // defined later
+    });
+    setGisInited(true);
+    maybeEnableButtons();
+  }, []);
+
+  const getSessionToken = useCallback(() => {
+    const jsonToken = localStorage.getItem('token');
+
+    if (jsonToken) {
+      const token = JSON.parse(jsonToken);
+
+      gapi.client.setToken(token);
+      setUser(token);
+    }
+  }, []);
+
+  /**
+   * Callback after the API client is loaded. Loads the
+   * discovery doc to initialize the API.
+   */
+  const initializeGapiClient = useCallback(async () => {
+    await gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: [DISCOVERY_DOC],
+    });
+    setGapiInited(true);
+    maybeEnableButtons();
+    getSessionToken();
+  }, []);
+
+  /**
+   * Enables user interaction after all libraries are loaded.
+   */
+  function maybeEnableButtons() {
+    if (gapiInited && gisInited) {
+      document.getElementById('authorize_button').style.visibility = 'visible';
+    }
+  }
+
+  /**
+   * Callback after api.js is loaded.
+   */
+  const gapiLoaded = useCallback(() => {
+    console.log('gapiLoaded');
+    gapi.load('client', initializeGapiClient);
+  }, []);
 
   const handleAuthClick = useCallback(() => {
     tokenClient.callback = async (resp) => {
@@ -129,26 +142,26 @@ export function GoogleLogin({ children }) {
     }
   }, []);
 
+  const insertScripts = useCallback(() => {
+    const gapiScript = document.createElement('script');
+    const gisScript = document.createElement('script');
+
+    gapiScript.src = 'https://apis.google.com/js/api.js';
+    gisScript.src = 'https://accounts.google.com/gsi/client';
+
+    gapiScript.onload = gapiLoaded;
+    gisScript.onload = gisLoaded;
+
+    document.body.appendChild(gapiScript);
+    document.body.appendChild(gisScript);
+  }, []);
+
   useEffect(() => {
     if (alreadyLogIn) return;
 
     alreadyLogIn = true;
 
-    setTimeout(() => {
-      gapiLoaded();
-      gisLoaded();
-    }, 3000);
-
-    setTimeout(() => {
-      const jsonToken = localStorage.getItem('token');
-
-      if (jsonToken) {
-        const token = JSON.parse(jsonToken);
-
-        gapi.client.setToken(token);
-        setUser(token);
-      }
-    }, 5000);
+    insertScripts();
   }, []);
 
   return (
@@ -169,19 +182,6 @@ export function GoogleLogin({ children }) {
       </button>
 
       <pre id="content" style={{ whiteSpace: 'pre-wrap' }}></pre>
-
-      <script
-        async
-        defer
-        src="https://apis.google.com/js/api.js"
-        onLoad={gapiLoaded}
-      ></script>
-      <script
-        async
-        defer
-        src="https://accounts.google.com/gsi/client"
-        onLoad={gisLoaded}
-      ></script>
       {children}
     </GoogleLoginContext.Provider>
   );
