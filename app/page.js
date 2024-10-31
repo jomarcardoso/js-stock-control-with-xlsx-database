@@ -7,19 +7,14 @@ import { Item } from './components/item';
 import { Bar } from './components/bar';
 import { ItemForm } from './components/item-form';
 import { SupplierSheetsContext } from './providers/supplier-sheets.provider';
+import { Table } from './components/table';
 
 const CurrentContext = createContext();
 
 export default function Home() {
   const [quantity, setQuantity] = useState(0);
-  const { values = [] } = useContext(StockSheetsContext);
   const [current, setCurrent] = useState();
   const [editingItem, setEditingItem] = useState();
-  const { values: suppliers = [] } = useContext(SupplierSheetsContext);
-
-  console.log(suppliers);
-
-  const rows = Array.isArray(values) ? values : [];
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
@@ -30,7 +25,7 @@ export default function Home() {
   return (
     <CurrentContext.Provider value={{ current, setCurrent }}>
       <div className="px-5 pb-36">
-        <ul className="grid gap-2">
+        {/* <ul className="grid gap-2">
           {rows.map((row, index) => (
             <li>
               <Item
@@ -49,31 +44,13 @@ export default function Home() {
               />
             </li>
           ))}
-        </ul>
-        <table className="table-auto">
-          <thead>
-            <tr>
-              <th>produto</th>
-              <th>quantidade</th>
-              <th>fornecedor</th>
-              <th>preço</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                <td>{row[0]}</td>
-                <td>{row[1]}</td>
-                <td>{row[2]}</td>
-                <td>{row[3]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        </ul> */}
+
+        <Table />
 
         <Bar current={current} setCurrent={setCurrent} />
 
-        <ItemForm />
+        {/* <ItemForm /> */}
       </div>
     </CurrentContext.Provider>
   );

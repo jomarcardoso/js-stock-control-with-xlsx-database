@@ -47,4 +47,12 @@ body {
   .button-control {
     @apply caret-pink-700 appearance-none border-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500 bg-white w-12 font-bold;
   }
+
+  .th {
+    @apply p-2 bg-gray-950 text-white top-0 sticky;
+  }
+
+  .td {
+    @apply p-2 border border-gray-950;
+  }
 }

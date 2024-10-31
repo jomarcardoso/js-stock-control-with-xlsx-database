@@ -166,18 +166,10 @@ export function GoogleLogin({ children }) {
 
   return (
     <GoogleLoginContext.Provider value={user}>
-      <button
-        id="authorize_button"
-        style={{ visibility: 'hidden' }}
-        onClick={handleAuthClick}
-      >
+      <button id="authorize_button" onClick={handleAuthClick}>
         Authorize
       </button>
-      <button
-        id="signout_button"
-        style={{ visibility: 'hidden' }}
-        onClick={handleSignoutClick}
-      >
+      <button id="signout_button" onClick={handleSignoutClick}>
         Sign Out
       </button>
 
