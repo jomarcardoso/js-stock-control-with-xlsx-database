@@ -4,10 +4,14 @@
 
 /* @import './styles/styles.css'; */
 
+html {
+  color-scheme: light dark;
+}
+
 body {
   /* font-family: Arial, Helvetica, sans-serif; */
 
-  @apply bg-gray-200 font-sans;
+  @apply font-sans;
   /* @apply font-sans; */
 }
 
@@ -48,11 +52,27 @@ body {
     @apply caret-pink-700 appearance-none border-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500 bg-white w-12 font-bold;
   }
 
+  .tr:nth-child(even) {
+    background-color: color-mix(in oklab, canvas 90%, canvasText 10%);
+  }
+
+  .tr:has(input:checked) {
+    background-color: selectedItem;
+    color: selectedItemText;
+  }
+
   .th {
-    @apply p-2 border border-gray-950 bg-gray-950 text-white top-0 sticky z-10 uppercase;
+    @apply p-2 border text-white sticky z-10 uppercase;
+
+    background-color: canvasText;
+    border-color: canvasText;
+    color: canvas;
+    top: -1px;
   }
 
   .td {
-    @apply p-2 border border-gray-950;
+    @apply p-2 border;
+
+    border-color: canvasText;
   }
 }

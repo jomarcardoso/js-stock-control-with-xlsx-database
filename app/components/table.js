@@ -18,13 +18,13 @@ export function Table({ current, setCurrent }) {
 
       <tbody>
         {rows.map((row, index) => (
-          <tr key={index} className="even:bg-white relative">
+          <tr key={index} className="tr relative">
             <td className="td">
               {row[0]}
 
               <input
                 type="radio"
-                className="appearance-none absolute inset-0 checked:border-gray-950 border-4 border-transparent"
+                className="appearance-none absolute inset-0"
                 onClick={() => current === index && setCurrent(undefined)}
                 onChange={() =>
                   setCurrent(current === index ? undefined : index)
