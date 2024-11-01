@@ -49,7 +49,7 @@ body {
   }
 
   .th {
-    @apply p-2 bg-gray-950 text-white top-0 sticky;
+    @apply p-2 border border-gray-950 bg-gray-950 text-white top-0 sticky z-10 uppercase;
   }
 
   .td {

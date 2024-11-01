@@ -46,7 +46,7 @@ export default function Home() {
           ))}
         </ul> */}
 
-        <Table />
+        <Table current={current} setCurrent={setCurrent} />
 
         <Bar current={current} setCurrent={setCurrent} />
 
