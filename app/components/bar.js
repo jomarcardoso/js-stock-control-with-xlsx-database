@@ -6,21 +6,23 @@ export function Bar({ current, setCurrent }) {
   const hasCurrent = typeof current === 'number';
 
   return (
-    <div className="fixed bottom-0 left-0 w-full px-5 py-2 border-t-2 border-gray-400 bg-white flex gap-2">
+    <div className="bar fixed bottom-0 left-0 w-full px-5 py-2 border-t-2 flex gap-2">
       {!hasCurrent && (
         <>
-          <ActionButton>
+          <ActionButton type="submit">
             ADICIONAR
             <br />
             PRODUTO
           </ActionButton>
-          <ActionButton description="ordenado por nome">ORDENAR</ActionButton>
+          <ActionButton type="submit" description="ordenado por nome">
+            ORDENAR
+          </ActionButton>
         </>
       )}
 
       {hasCurrent && (
         <>
-          <ActionButton>
+          <ActionButton type="submit">
             EDITAR
             <br />
             PRODUTO
@@ -33,14 +35,13 @@ export function Bar({ current, setCurrent }) {
             /> */}
           </ActionButton>
 
-          <ActionButton color="red">
+          <ActionButton>
             REMOVER
             <br />
             PRODUTO
           </ActionButton>
 
           <ActionButton
-            color="red"
             onClick={() => {
               setCurrent(null);
             }}

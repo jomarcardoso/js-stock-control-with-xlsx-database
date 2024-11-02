@@ -7,7 +7,7 @@ export function Table({ current, setCurrent }) {
 
   return (
     <table className="table-auto w-full">
-      <thead className="rounded-lg overflow-hidden">
+      <thead className="rounded-lg">
         <tr>
           <th className="th">produto</th>
           <th className="th">quant</th>
@@ -24,7 +24,8 @@ export function Table({ current, setCurrent }) {
 
               <input
                 type="radio"
-                className="appearance-none absolute inset-0"
+                style={{ scale: 'initial' }}
+                className="appearance-none absolute inset-0 border-0 bg-transparent m-0 p-0"
                 onClick={() => current === index && setCurrent(undefined)}
                 onChange={() =>
                   setCurrent(current === index ? undefined : index)

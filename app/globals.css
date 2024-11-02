@@ -11,11 +11,19 @@ html {
 body {
   /* font-family: Arial, Helvetica, sans-serif; */
 
-  @apply font-sans;
+  /* @apply font-sans; */
   /* @apply font-sans; */
 }
 
 @layer base {
+  @import '@dutchcelt/system.css';
+
+  /* *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  } */
+
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -26,6 +34,10 @@ body {
   /* Firefox */
   input[type='number'] {
     -moz-appearance: textfield;
+  }
+
+  table {
+    overflow: initial;
   }
 }
 
@@ -52,27 +64,36 @@ body {
     @apply caret-pink-700 appearance-none border-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-gray-500 bg-white w-12 font-bold;
   }
 
-  .tr:nth-child(even) {
-    background-color: color-mix(in oklab, canvas 90%, canvasText 10%);
-  }
-
   .tr:has(input:checked) {
-    background-color: selectedItem;
-    color: selectedItemText;
+    background-color: var(--system-selected-item);
+    color: var(--system-selected-item-text);
   }
 
   .th {
-    @apply p-2 border text-white sticky z-10 uppercase;
+    @apply p-2 sticky z-10 uppercase;
 
-    background-color: canvasText;
-    border-color: canvasText;
-    color: canvas;
+    /* background-color: var(--system-stroke-color); */
+    /* border-color: var(--system-canvas-text); */
+    background-color: var(--system-canvas-text);
+    color: var(--system-canvas);
+    /* border-bottom: var(--system-stroke-thin) solid var(--system-stroke-color); */
     top: -1px;
   }
 
   .td {
-    @apply p-2 border;
+    @apply p-2;
 
-    border-color: canvasText;
+    /* border-color: canvasText; */
+  }
+
+  .bar {
+    background-color: var(--system-canvas);
+    border-top: var(--system-stroke-medium) solid var(--system-stroke-color);
+  }
+
+  .submit-button {
+    background: var(--system-interactive-color);
+    color: var(--system-canvas-text-inverted);
+    border: var(--system-stroke-thin) solid var(--system-accent-color);
   }
 }

@@ -173,7 +173,7 @@ export function GoogleLogin({ children }) {
         Sign Out
       </button>
 
-      <pre id="content" style={{ whiteSpace: 'pre-wrap' }}></pre>
+      {/* <pre id="content" style={{ whiteSpace: 'pre-wrap' }}></pre> */}
       {children}
     </GoogleLoginContext.Provider>
   );
