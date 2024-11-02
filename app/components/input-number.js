@@ -4,6 +4,9 @@ import { useRef } from 'react';
 
 export function InputNumber({ label = '', setValue, ...props }) {
   const inputRef = useRef();
+  /** @type {HTMLInputElement} */
+  const input = inputRef?.current;
+  const value = input ? input?.valueAsNumber : 0;
 
   return (
     <div className="form-control">
@@ -12,7 +15,7 @@ export function InputNumber({ label = '', setValue, ...props }) {
       </label>
       <div className="flex gap-2">
         <button
-          onClick={() => setValue((inputRef.current.valueAsNumber || 0) - 1)}
+          onClick={() => setValue(value - 1)}
           className="button-control rounded-l-md"
         >
           -
@@ -25,7 +28,7 @@ export function InputNumber({ label = '', setValue, ...props }) {
           {...props}
         />
         <button
-          onClick={() => setValue((inputRef.current.valueAsNumber || 0) + 1)}
+          onClick={() => setValue(value + 1)}
           className="button-control rounded-r-md"
         >
           +

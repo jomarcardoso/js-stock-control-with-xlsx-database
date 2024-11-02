@@ -9,7 +9,7 @@ import { ItemForm } from './components/item-form';
 import { SupplierSheetsContext } from './providers/supplier-sheets.provider';
 import { Table } from './components/table';
 
-const CurrentContext = createContext();
+const CurrentContext = createContext({});
 
 export default function Home() {
   const [quantity, setQuantity] = useState(0);

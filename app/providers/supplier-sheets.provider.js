@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { GoogleLoginContext } from './google-login.provider';
 
-export const SupplierSheetsContext = createContext({});
+export const SupplierSheetsContext = createContext({ values: [] });
 
 const SPREADSHEET_ID = '1medi4MSrVKLXKm6TYT62zFMTftt99D40Nwxv_xB6NTY';
 
