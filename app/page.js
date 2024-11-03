@@ -8,13 +8,13 @@ import { Bar } from './components/bar';
 import { ItemForm } from './components/item-form';
 import { SupplierSheetsContext } from './providers/supplier-sheets.provider';
 import { Table } from './components/table';
+import { Dialog } from './components/dialog';
 
-const CurrentContext = createContext({});
+export const CurrentContext = createContext(undefined);
 
 export default function Home() {
   const [quantity, setQuantity] = useState(0);
   const [current, setCurrent] = useState();
-  const [editingItem, setEditingItem] = useState();
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
@@ -52,6 +52,7 @@ export default function Home() {
 
         {/* <ItemForm /> */}
       </div>
+      <Dialog />
     </CurrentContext.Provider>
   );
 }

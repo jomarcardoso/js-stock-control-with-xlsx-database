@@ -38,6 +38,7 @@ body {
 
   table {
     overflow: initial;
+    display: table;
   }
 }
 
