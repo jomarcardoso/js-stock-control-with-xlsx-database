@@ -1,12 +1,13 @@
-import { type } from 'os';
+'use client';
 import { ActionButton } from './action-button';
-import Image from 'next/image';
 import { useContext } from 'react';
-import { EditingItemContext } from '../providers/editing-item.provider';
+import { EditingContext } from '../providers/editing.provider';
+import { CurrentContext } from '../providers/current.provider';
 
-export function Bar({ current, setCurrent }) {
-  const hasCurrent = typeof current === 'number';
-  const [editingItem, setEditingItem] = useContext(EditingItemContext);
+export function Bar() {
+  const { current, setCurrent } = useContext(CurrentContext);
+  const hasCurrent = current !== -1;
+  const { setEditing } = useContext(EditingContext);
 
   return (
     <div className="bar fixed bottom-0 left-0 w-full px-5 py-2 border-t-2 flex gap-2">
@@ -25,7 +26,7 @@ export function Bar({ current, setCurrent }) {
 
       {hasCurrent && (
         <>
-          <ActionButton type="submit" onClick={() => setEditingItem(current)}>
+          <ActionButton type="submit" onClick={() => setEditing(true)}>
             EDITAR
             <br />
             PRODUTO
@@ -46,7 +47,7 @@ export function Bar({ current, setCurrent }) {
 
           <ActionButton
             onClick={() => {
-              setCurrent(null);
+              setCurrent(-1);
             }}
           >
             CANCELAR

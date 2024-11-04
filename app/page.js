@@ -1,29 +1,10 @@
-'use client';
-import { Input } from './components/input';
-import { InputNumber } from './components/input-number';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { StockSheetsContext } from './providers/stock-sheets.provider';
-import { Item } from './components/item';
 import { Bar } from './components/bar';
-import { ItemForm } from './components/item-form';
-import { SupplierSheetsContext } from './providers/supplier-sheets.provider';
 import { Table } from './components/table';
 import { Dialog } from './components/dialog';
 
-export const CurrentContext = createContext(undefined);
-
 export default function Home() {
-  const [quantity, setQuantity] = useState(0);
-  const [current, setCurrent] = useState();
-
-  useEffect(() => {
-    document.addEventListener('scroll', () => {
-      setCurrent(undefined);
-    });
-  }, []);
-
   return (
-    <CurrentContext.Provider value={{ current, setCurrent }}>
+    <>
       <div className="px-5 pb-36">
         {/* <ul className="grid gap-2">
           {rows.map((row, index) => (
@@ -46,13 +27,13 @@ export default function Home() {
           ))}
         </ul> */}
 
-        <Table current={current} setCurrent={setCurrent} />
+        <Table />
 
-        <Bar current={current} setCurrent={setCurrent} />
+        <Bar />
 
         {/* <ItemForm /> */}
       </div>
       <Dialog />
-    </CurrentContext.Provider>
+    </>
   );
 }

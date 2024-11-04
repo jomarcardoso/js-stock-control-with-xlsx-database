@@ -1,7 +1,10 @@
-import { useContext, useState } from 'react';
+'use client';
+import { useContext } from 'react';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
+import { CurrentContext } from '../providers/current.provider';
 
-export function Table({ current, setCurrent }) {
+export function Table() {
+  const { current, setCurrent } = useContext(CurrentContext);
   const { values = [] } = useContext(StockSheetsContext);
   const rows = Array.isArray(values) ? values : [];
 
@@ -26,10 +29,8 @@ export function Table({ current, setCurrent }) {
                 type="radio"
                 style={{ scale: 'initial' }}
                 className="appearance-none absolute inset-0 border-0 bg-transparent m-0 p-0"
-                onClick={() => current === index && setCurrent(undefined)}
-                onChange={() =>
-                  setCurrent(current === index ? undefined : index)
-                }
+                onClick={() => current === index && setCurrent(-1)}
+                onChange={() => setCurrent(current === index ? -1 : index)}
                 checked={current === index}
                 key={row[0]}
                 name="product"

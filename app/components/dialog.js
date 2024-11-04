@@ -1,13 +1,13 @@
 'use client';
 import { useContext, useEffect } from 'react';
-import { EditingItemContext } from '../providers/editing-item.provider';
+import { EditingContext } from '../providers/editing.provider';
 import { ItemForm } from './item-form';
 
 export function Dialog() {
-  const [index, setIndex] = useContext(EditingItemContext);
+  const { editing, setEditing } = useContext(EditingContext);
 
   useEffect(() => {
-    if (index === undefined) return;
+    if (!editing) return;
 
     const dialog = document.querySelector('dialog');
     dialog.showModal();
@@ -15,10 +15,10 @@ export function Dialog() {
     return () => {
       dialog.close();
     };
-  }, [index]);
+  }, [editing]);
 
   return (
-    <dialog>
+    <dialog onClose={() => setEditing(-1)}>
       <ItemForm />
     </dialog>
   );
