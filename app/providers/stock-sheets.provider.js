@@ -9,7 +9,7 @@ const SPREADSHEET_ID = '1medi4MSrVKLXKm6TYT62zFMTftt99D40Nwxv_xB6NTY';
 
 export function StockSheetsProvider({ children }) {
   const user = useContext(GoogleLoginContext);
-  const [sheets, setSheets] = useState([]);
+  const [sheets, setSheets] = useState({ values: [] });
 
   async function getSheets() {
     let response;

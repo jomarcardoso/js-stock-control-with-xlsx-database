@@ -1,9 +1,10 @@
 'use client';
 import { createContext, useState } from 'react';
+import { DEFAULT_BOOLEAN_DISPATCH } from '../types';
 
 export const EditingContext = createContext({
   editing: false,
-  setEditing: () => {},
+  setEditing: DEFAULT_BOOLEAN_DISPATCH,
 });
 
 export function EditingItemProvider({ children }) {
