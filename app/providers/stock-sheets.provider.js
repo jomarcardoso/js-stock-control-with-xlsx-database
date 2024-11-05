@@ -34,6 +34,19 @@ export function StockSheetsProvider({ children }) {
     setSheets(response.result);
   }
 
+  async function updateSheet() {
+    try {
+      const response = await gapi.client.sheets.spreadsheets.values.update({
+        spreadsheetId: SPREADSHEET_ID,
+        range: 'estoque!A2:E',
+        valueInputOption: 'USER_ENTERED',
+        resource: { values: sheets.values },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     if (!user) return;
 

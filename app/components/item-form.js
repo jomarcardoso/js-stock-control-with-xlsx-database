@@ -5,6 +5,7 @@ import { InputNumber } from './input-number';
 import { Select } from './select';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { CurrentContext } from '../providers/current.provider';
+import { EditingContext } from '../providers/editing.provider';
 
 /**
  *
@@ -12,7 +13,8 @@ import { CurrentContext } from '../providers/current.provider';
  * @param {Object} props.item
  * @returns
  */
-export function ItemForm() {
+export function Form() {
+  const { setEditing } = useContext(EditingContext);
   const { current } = useContext(CurrentContext);
   const { values = [] } = useContext(StockSheetsContext);
   const rows = Array.isArray(values) ? values : [];
@@ -33,30 +35,40 @@ export function ItemForm() {
   const [price, setPrice] = useState(initialItem[3] || '');
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-2">
-      <div className="col-span-2">
-        <Input
-          id="name"
-          label="nome do produto"
-          value={name}
-          setValue={setName}
+    <form>
+      <div className="grid grid-cols-3 gap-2">
+        <div className="col-span-2">
+          <Input
+            id="name"
+            label="nome do produto"
+            value={name}
+            setValue={setName}
+          />
+        </div>
+        <InputNumber
+          id="quantity"
+          value={quantity}
+          setValue={setQuantity}
+          label="quantidade"
         />
+        <div className="col-span-2">
+          <Select
+            id="supplier"
+            label="fornecedor"
+            value={supplier}
+            setValue={setSupplier}
+          />
+        </div>
+        <Input id="price" value={price} setValue={setPrice} label="preço" />
       </div>
-      <InputNumber
-        id="quantity"
-        value={quantity}
-        setValue={setQuantity}
-        label="quantidade"
-      />
-      <div className="col-span-2">
-        <Select
-          id="supplier"
-          label="fornecedor"
-          value={supplier}
-          setValue={setSupplier}
-        />
-      </div>
-      <Input id="price" value={price} setValue={setPrice} label="preço" />
-    </div>
+
+      <footer className="flex justify-end gap-2 mt-2">
+        <button type="button" onClick={() => setEditing(false)}>
+          cancelar
+        </button>
+
+        <button type="submit">salvar</button>
+      </footer>
+    </form>
   );
 }

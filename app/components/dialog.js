@@ -1,25 +1,28 @@
 'use client';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { EditingContext } from '../providers/editing.provider';
-import { ItemForm } from './item-form';
+import { Form } from './item-form';
 
 export function Dialog() {
   const { editing, setEditing } = useContext(EditingContext);
+  const ref = useRef();
+  const dialog = ref?.current;
+
+  console.log(editing);
 
   useEffect(() => {
-    if (!editing) return;
+    if (editing) {
+      dialog?.showModal();
 
-    const dialog = document.querySelector('dialog');
-    dialog.showModal();
+      return;
+    }
 
-    return () => {
-      dialog.close();
-    };
+    dialog?.close();
   }, [editing]);
 
   return (
-    <dialog onClose={() => setEditing(-1)}>
-      <ItemForm />
+    <dialog ref={ref} onClose={() => setEditing(false)}>
+      <Form />
     </dialog>
   );
 }
