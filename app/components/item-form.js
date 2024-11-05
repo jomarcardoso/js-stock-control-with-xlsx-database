@@ -33,15 +33,30 @@ export function ItemForm() {
   const [price, setPrice] = useState(initialItem[3] || '');
 
   return (
-    <div className="grid grid-cols-3 gap-2 shadow p-2 rounded-lg border-2 bg-white has-[input:checked]:border-pink-500 relative">
+    <div className="grid grid-cols-3 gap-2 p-2">
       <div className="col-span-2">
-        <Input label="nome do produto" value={name} setValue={setName} />
+        <Input
+          id="name"
+          label="nome do produto"
+          value={name}
+          setValue={setName}
+        />
       </div>
-      <InputNumber value={quantity} setValue={setQuantity} label="quantidade" />
+      <InputNumber
+        id="quantity"
+        value={quantity}
+        setValue={setQuantity}
+        label="quantidade"
+      />
       <div className="col-span-2">
-        <Select label="fornecedor" value={supplier} setValue={setSupplier} />
+        <Select
+          id="supplier"
+          label="fornecedor"
+          value={supplier}
+          setValue={setSupplier}
+        />
       </div>
-      <Input value={price} setValue={setPrice} label="preço" />
+      <Input id="price" value={price} setValue={setPrice} label="preço" />
     </div>
   );
 }
