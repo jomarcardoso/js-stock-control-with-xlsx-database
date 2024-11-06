@@ -8,8 +8,6 @@ export function Dialog() {
   const ref = useRef();
   const dialog = ref?.current;
 
-  console.log(editing);
-
   useEffect(() => {
     if (editing) {
       dialog?.showModal();

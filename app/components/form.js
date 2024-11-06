@@ -34,23 +34,21 @@ export function Form() {
   const [supplier, setSupplier] = useState(initialItem[2] || '');
   const [price, setPrice] = useState(initialItem[3] || '');
 
-  console.log(name, quantity);
+  const handleSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
 
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
-
-    console.log(name, quantity, supplier, price);
-
-    setSheets(
-      rows.map((row, index) => {
+      const newLines = rows.map((row, index) => {
         if (index !== current) return row;
 
         return [name, String(quantity), supplier, price];
-      }),
-    );
+      });
 
-    setEditing(false);
-  }, []);
+      setSheets(newLines);
+      setEditing(false);
+    },
+    [current, rows, name, quantity, supplier, price, setSheets, setEditing],
+  );
 
   return (
     <form onSubmit={handleSubmit}>

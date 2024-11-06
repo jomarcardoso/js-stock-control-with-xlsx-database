@@ -36,8 +36,10 @@ export function StockSheetsProvider({ children }) {
       return;
     }
 
-    fetched.current = true;
     setSheets(response.result.values || []);
+    setTimeout(() => {
+      fetched.current = true;
+    }, 100);
   }
 
   async function updateSheet() {
@@ -55,6 +57,8 @@ export function StockSheetsProvider({ children }) {
 
   useEffect(() => {
     if (!fetched.current) return;
+
+    console.log(sheets);
 
     updateSheet();
   }, [sheets]);

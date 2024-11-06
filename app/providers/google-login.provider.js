@@ -14,7 +14,7 @@ const DISCOVERY_DOC =
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
 
 let tokenClient;
 
