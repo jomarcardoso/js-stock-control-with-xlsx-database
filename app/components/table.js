@@ -5,8 +5,8 @@ import { CurrentContext } from '../providers/current.provider';
 
 export function Table() {
   const { current, setCurrent } = useContext(CurrentContext);
-  const { values = [] } = useContext(StockSheetsContext);
-  const rows = Array.isArray(values) ? values : [];
+  const { sheets } = useContext(StockSheetsContext);
+  const rows = Array.isArray(sheets) ? sheets : [];
 
   return (
     <table className="table-auto w-full">

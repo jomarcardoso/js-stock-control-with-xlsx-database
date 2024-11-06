@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Input } from './input';
 import { InputNumber } from './input-number';
 import { Select } from './select';
@@ -16,8 +16,8 @@ import { EditingContext } from '../providers/editing.provider';
 export function Form() {
   const { setEditing } = useContext(EditingContext);
   const { current } = useContext(CurrentContext);
-  const { values = [] } = useContext(StockSheetsContext);
-  const rows = Array.isArray(values) ? values : [];
+  const { sheets, setSheets } = useContext(StockSheetsContext);
+  const rows = Array.isArray(sheets) ? sheets : [];
   const initialItem = rows[current] || {};
 
   useEffect(() => {
@@ -34,8 +34,26 @@ export function Form() {
   const [supplier, setSupplier] = useState(initialItem[2] || '');
   const [price, setPrice] = useState(initialItem[3] || '');
 
+  console.log(name, quantity);
+
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+
+    console.log(name, quantity, supplier, price);
+
+    setSheets(
+      rows.map((row, index) => {
+        if (index !== current) return row;
+
+        return [name, String(quantity), supplier, price];
+      }),
+    );
+
+    setEditing(false);
+  }, []);
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-3 gap-2">
         <div className="col-span-2">
           <Input

@@ -1,15 +1,20 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { GoogleLoginContext } from './google-login.provider';
+import { DEFAULT_LIST_DISPATCH } from '../types';
 
-export const StockSheetsContext = createContext({ values: [] });
+export const StockSheetsContext = createContext({
+  sheets: [],
+  setSheets: DEFAULT_LIST_DISPATCH,
+});
 
 const SPREADSHEET_ID = '1medi4MSrVKLXKm6TYT62zFMTftt99D40Nwxv_xB6NTY';
 
 export function StockSheetsProvider({ children }) {
+  const fetched = useRef(false);
   const user = useContext(GoogleLoginContext);
-  const [sheets, setSheets] = useState({ values: [] });
+  const [sheets, setSheets] = useState([]);
 
   async function getSheets() {
     let response;
@@ -31,7 +36,8 @@ export function StockSheetsProvider({ children }) {
       return;
     }
 
-    setSheets(response.result);
+    fetched.current = true;
+    setSheets(response.result.values || []);
   }
 
   async function updateSheet() {
@@ -40,12 +46,18 @@ export function StockSheetsProvider({ children }) {
         spreadsheetId: SPREADSHEET_ID,
         range: 'estoque!A2:E',
         valueInputOption: 'USER_ENTERED',
-        resource: { values: sheets.values },
+        resource: { values: sheets },
       });
     } catch (err) {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    if (!fetched.current) return;
+
+    updateSheet();
+  }, [sheets]);
 
   useEffect(() => {
     if (!user) return;
@@ -54,7 +66,7 @@ export function StockSheetsProvider({ children }) {
   }, [user]);
 
   return (
-    <StockSheetsContext.Provider value={sheets}>
+    <StockSheetsContext.Provider value={{ sheets, setSheets }}>
       {children}
     </StockSheetsContext.Provider>
   );

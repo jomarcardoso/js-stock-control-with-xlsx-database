@@ -1,7 +1,7 @@
 'use client';
 import { useContext, useEffect, useRef } from 'react';
 import { EditingContext } from '../providers/editing.provider';
-import { Form } from './item-form';
+import { Form } from './form';
 
 export function Dialog() {
   const { editing, setEditing } = useContext(EditingContext);
