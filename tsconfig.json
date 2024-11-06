@@ -1,5 +1,5 @@
 {
-  "include": ["app", ".next/types/**/*.ts", "docs/types/**/*.ts"],
+  "include": ["app", ".next/types/**/*.ts"],
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
