@@ -8,6 +8,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   output: 'export',
+  basePath: '/js-stock-control-with-xlsx-database',
   reactStrictMode: true,
   images: {
     unoptimized: true,

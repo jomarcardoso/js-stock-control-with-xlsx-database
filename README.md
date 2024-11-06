@@ -1,5 +1,7 @@
 # JS stock control with xlsx database
 
+[Demo](https://jomarcardoso.github.io/js-stock-control-with-xlsx-database/)
+
 ## What is it made?
 
 - Next.js
