@@ -1,7 +1,8 @@
 {
   "include": [
     "app",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "dist/types/**/*.ts"
   ],
   "compilerOptions": {
     "allowJs": true,

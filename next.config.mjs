@@ -7,14 +7,12 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  output: 'export',
+  reactStrictMode: true,
   images: {
-    localPatterns: [
-      {
-        pathname: '/assets/**',
-        search: '',
-      },
-    ],
+    unoptimized: true,
   },
+  distDir: 'dist',
 };
 
 export default nextConfig;
