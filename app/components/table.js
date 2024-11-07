@@ -1,30 +1,62 @@
 'use client';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { CurrentContext } from '../providers/current.provider';
+import { SortContext } from '../providers/sort.provider';
 
 export function Table() {
   const { current, setCurrent } = useContext(CurrentContext);
   const { sheets } = useContext(StockSheetsContext);
   const rows = Array.isArray(sheets) ? sheets : [];
+  const { sortedColumn, setSortedColumn } = useContext(SortContext);
+
+  const sortedTable = useMemo(() => {
+    const newRows = [...rows].map((row, index) => [...row, index]);
+
+    newRows.sort((a, b) => {
+      const aValue = a[sortedColumn];
+      const bValue = b[sortedColumn];
+      if (aValue < bValue) return -1;
+      if (aValue > bValue) return 1;
+      return 0;
+    });
+
+    return newRows;
+  }, [rows, sortedColumn]);
+
+  console.log('sortedTable', current, sortedTable);
 
   return (
     <table className="table-auto w-full">
       <thead className="rounded-lg">
         <tr>
-          <th className="th">produto</th>
-          <th className="th" style={{ width: '65px' }}>
+          <th className="th" tabIndex={0} onClick={() => setSortedColumn(0)}>
+            produto
+          </th>
+          <th
+            className="th"
+            tabIndex={0}
+            onClick={() => setSortedColumn(1)}
+            style={{ width: '65px' }}
+          >
             quant
           </th>
-          <th className="th">fornecedor</th>
-          <th className="th" style={{ width: '72px' }}>
+          <th className="th" tabIndex={0} onClick={() => setSortedColumn(2)}>
+            fornecedor
+          </th>
+          <th
+            className="th"
+            tabIndex={0}
+            onClick={() => setSortedColumn(3)}
+            style={{ width: '72px' }}
+          >
             preço
           </th>
         </tr>
       </thead>
 
       <tbody>
-        {rows.map((row, index) => (
+        {sortedTable.map((row, index) => (
           <tr key={index} className="tr relative">
             <td className="td">
               {row[0]}
@@ -33,9 +65,9 @@ export function Table() {
                 type="radio"
                 style={{ scale: 'initial' }}
                 className="appearance-none absolute inset-0 border-0 bg-transparent m-0 p-0"
-                onClick={() => current === index && setCurrent(-1)}
-                onChange={() => setCurrent(current === index ? -1 : index)}
-                checked={current === index}
+                onClick={() => current === row[4] && setCurrent(-1)}
+                onChange={() => setCurrent(current === row[4] ? -1 : row[4])}
+                checked={current === row[4]}
                 key={row[0]}
                 name="product"
                 value={row[0]}

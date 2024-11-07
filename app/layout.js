@@ -4,8 +4,9 @@ import './theme.css';
 import { GoogleLogin } from './providers/google-login.provider';
 import { StockSheetsProvider } from './providers/stock-sheets.provider';
 import { SupplierSheetsProvider } from './providers/supplier-sheets.provider';
-import { EditingItemProvider } from './providers/editing.provider';
+import { EditingProvider } from './providers/editing.provider';
 import { CurrentProvider } from './providers/current.provider';
+import { SortProvider } from './providers/sort.provider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -32,9 +33,11 @@ export default function RootLayout({ children }) {
         <GoogleLogin>
           <SupplierSheetsProvider>
             <CurrentProvider>
-              <EditingItemProvider>
-                <StockSheetsProvider>{children}</StockSheetsProvider>
-              </EditingItemProvider>
+              <EditingProvider>
+                <SortProvider>
+                  <StockSheetsProvider>{children}</StockSheetsProvider>
+                </SortProvider>
+              </EditingProvider>
             </CurrentProvider>
           </SupplierSheetsProvider>
         </GoogleLogin>

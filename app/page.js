@@ -6,27 +6,6 @@ export default function Home() {
   return (
     <>
       <div className="mt-4 pb-24">
-        {/* <ul className="grid gap-2">
-          {rows.map((row, index) => (
-            <li>
-              <Item
-                onClick={() => current === index && setCurrent(undefined)}
-                onChange={() =>
-                  setCurrent(current === index ? undefined : index)
-                }
-                checked={current === index}
-                key={row[0]}
-                product={row[0]}
-                quantity={row[1]}
-                supplier={row[2]}
-                price={row[3]}
-                name="product"
-                value={row[0]}
-              />
-            </li>
-          ))}
-        </ul> */}
-
         <Table />
 
         <Bar />

@@ -7,7 +7,7 @@ export const EditingContext = createContext({
   setEditing: DEFAULT_BOOLEAN_DISPATCH,
 });
 
-export function EditingItemProvider({ children }) {
+export function EditingProvider({ children }) {
   const [editing, setEditing] = useState(false);
 
   return (

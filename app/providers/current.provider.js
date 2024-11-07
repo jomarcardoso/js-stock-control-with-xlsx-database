@@ -10,11 +10,11 @@ export const CurrentContext = createContext({
 export function CurrentProvider({ children }) {
   const [current, setCurrent] = useState(-1);
 
-  useEffect(() => {
-    document.addEventListener('scroll', () => {
-      setCurrent(-1);
-    });
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('scroll', () => {
+  //     setCurrent(-1);
+  //   });
+  // }, []);
 
   return (
     <CurrentContext.Provider value={{ current, setCurrent }}>

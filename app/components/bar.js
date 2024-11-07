@@ -4,18 +4,22 @@ import { useContext } from 'react';
 import { EditingContext } from '../providers/editing.provider';
 import { CurrentContext } from '../providers/current.provider';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
+import { SortContext } from '../providers/sort.provider';
 
 export function Bar() {
   const { current, setCurrent } = useContext(CurrentContext);
   const hasCurrent = current !== -1;
   const { setEditing } = useContext(EditingContext);
   const { sheets, setSheets } = useContext(StockSheetsContext);
+  const { setSort } = useContext(SortContext);
 
   const handleRemove = () => {
-    const newSheets = [...sheets];
-    newSheets.splice(current, 1);
-    setSheets(newSheets);
-    setCurrent(-1);
+    if (confirm(`Você quer apagar ${sheets[current][0]}?`)) {
+      const newSheets = [...sheets];
+      newSheets.splice(current, 1);
+      setSheets(newSheets);
+      setCurrent(-1);
+    }
   };
 
   const handleAdd = () => {
@@ -35,9 +39,10 @@ export function Bar() {
             <br />
             PRODUTO
           </ActionButton>
-          <ActionButton type="submit" description="ordenado por nome">
+
+          {/* <ActionButton type="submit" description="ordenado por nome" onClick={handleSort}>
             ORDENAR
-          </ActionButton>
+          </ActionButton> */}
         </>
       )}
 

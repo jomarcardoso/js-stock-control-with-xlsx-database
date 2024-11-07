@@ -7,6 +7,14 @@ import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { CurrentContext } from '../providers/current.provider';
 import { EditingContext } from '../providers/editing.provider';
 
+function unformatPrice(price = '') {
+  return (price || '')
+    .replace(',00', '')
+    .replace('.', '')
+    .replace(/[^\d.-]/g, '')
+    .trim();
+}
+
 /**
  *
  * @param {Object} props
@@ -20,28 +28,38 @@ export function Form() {
   const rows = Array.isArray(sheets) ? sheets : [];
   const initialItem = rows[current] || {};
 
+  const [name, setName] = useState(initialItem[0] || '');
+  const [quantity, setQuantity] = useState(Number(initialItem[1]) || '');
+  const [supplier, setSupplier] = useState(initialItem[2] || '');
+  const [price, setPrice] = useState(unformatPrice(initialItem[3]));
+
   useEffect(() => {
     if (!rows.length) return;
 
     setName(initialItem[0] || '');
     setQuantity(Number(initialItem[1]) || '');
     setSupplier(initialItem[2] || '');
-    setPrice(initialItem[3] || '');
-  }, [current]);
-
-  const [name, setName] = useState(initialItem[0] || '');
-  const [quantity, setQuantity] = useState(Number(initialItem[1]) || '');
-  const [supplier, setSupplier] = useState(initialItem[2] || '');
-  const [price, setPrice] = useState(initialItem[3] || '');
+    setPrice(unformatPrice(initialItem[3]));
+  }, [initialItem]);
 
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
+      const brl = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      });
+
       const newLines = rows.map((row, index) => {
         if (index !== current) return row;
 
-        return [name, String(quantity), supplier, price];
+        return [
+          name,
+          String(quantity),
+          supplier,
+          brl.format(Number(unformatPrice(price))),
+        ];
       });
 
       setSheets(newLines);
