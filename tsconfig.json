@@ -1,9 +1,17 @@
 {
-  "include": ["app", ".next/types/**/*.ts"],
+  "include": [
+    "app",
+    ".next/types/**/*.ts",
+    "out/types/**/*.ts"
+  ],
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
@@ -20,5 +28,7 @@
       }
     ]
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

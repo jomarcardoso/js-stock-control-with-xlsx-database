@@ -5,7 +5,7 @@ import { Dialog } from './components/dialog';
 export default function Home() {
   return (
     <>
-      <div className="px-5 pb-36">
+      <div className="mt-4 pb-24">
         {/* <ul className="grid gap-2">
           {rows.map((row, index) => (
             <li>

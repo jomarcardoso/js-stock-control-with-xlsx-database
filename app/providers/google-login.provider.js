@@ -64,7 +64,7 @@ export function GoogleLogin({ children }) {
     });
     setGisInited(true);
     maybeEnableButtons();
-  }, []);
+  }, [setGisInited, maybeEnableButtons]);
 
   const getSessionToken = useCallback(() => {
     const jsonToken = localStorage.getItem('token');
@@ -75,7 +75,7 @@ export function GoogleLogin({ children }) {
       gapi.client.setToken(token);
       setUser(token);
     }
-  }, []);
+  }, [setUser]);
 
   /**
    * Callback after the API client is loaded. Loads the
@@ -89,7 +89,7 @@ export function GoogleLogin({ children }) {
     setGapiInited(true);
     maybeEnableButtons();
     getSessionToken();
-  }, []);
+  }, [setGapiInited, maybeEnableButtons, getSessionToken]);
 
   /**
    * Enables user interaction after all libraries are loaded.
@@ -104,7 +104,6 @@ export function GoogleLogin({ children }) {
    * Callback after api.js is loaded.
    */
   const gapiLoaded = useCallback(() => {
-    console.log('gapiLoaded');
     gapi.load('client', initializeGapiClient);
   }, []);
 
@@ -129,7 +128,7 @@ export function GoogleLogin({ children }) {
       // Skip display of account chooser and consent dialog for an existing session.
       tokenClient.requestAccessToken({ prompt: '' });
     }
-  }, []);
+  }, [setUser]);
 
   const handleSignoutClick = useCallback(() => {
     const token = gapi.client.getToken();
@@ -162,7 +161,7 @@ export function GoogleLogin({ children }) {
     alreadyLogIn = true;
 
     insertScripts();
-  }, []);
+  }, [insertScripts, alreadyLogIn]);
 
   return (
     <GoogleLoginContext.Provider value={user}>

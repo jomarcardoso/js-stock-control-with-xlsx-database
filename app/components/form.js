@@ -53,7 +53,7 @@ export function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-3 gap-2">
-        <div className="col-span-2">
+        <div className="col-span-3 md:col-span-2">
           <Input
             id="name"
             label="nome do produto"
@@ -61,13 +61,15 @@ export function Form() {
             setValue={setName}
           />
         </div>
-        <InputNumber
-          id="quantity"
-          value={quantity}
-          setValue={setQuantity}
-          label="quantidade"
-        />
-        <div className="col-span-2">
+        <div className="col-span-3 md:col-span-1">
+          <InputNumber
+            id="quantity"
+            value={quantity}
+            setValue={setQuantity}
+            label="quantidade"
+          />
+        </div>
+        <div className="col-span-3 md:col-span-2">
           <Select
             id="supplier"
             label="fornecedor"
@@ -75,7 +77,9 @@ export function Form() {
             setValue={setSupplier}
           />
         </div>
-        <Input id="price" value={price} setValue={setPrice} label="preço" />
+        <div className="col-span-3 md:col-span-1">
+          <Input id="price" value={price} setValue={setPrice} label="preço" />
+        </div>
       </div>
 
       <footer className="flex justify-end gap-2 mt-2">

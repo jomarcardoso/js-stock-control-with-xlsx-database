@@ -13,9 +13,13 @@ export function Table() {
       <thead className="rounded-lg">
         <tr>
           <th className="th">produto</th>
-          <th className="th">quant</th>
+          <th className="th" style={{ width: '65px' }}>
+            quant
+          </th>
           <th className="th">fornecedor</th>
-          <th className="th w-28">preço</th>
+          <th className="th" style={{ width: '72px' }}>
+            preço
+          </th>
         </tr>
       </thead>
 
@@ -39,7 +43,7 @@ export function Table() {
             </td>
             <td className="td">{row[1]}</td>
             <td className="td">{row[2]}</td>
-            <td className="td">{row[3]}</td>
+            <td className="td">{(row[3] || '').replace(',00', '')}</td>
           </tr>
         ))}
       </tbody>

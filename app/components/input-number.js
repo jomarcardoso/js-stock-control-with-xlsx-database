@@ -6,7 +6,9 @@ export function InputNumber({ label = '', setValue, ...props }) {
   const inputRef = useRef();
   /** @type {HTMLInputElement} */
   const input = inputRef?.current;
-  const value = input ? input?.valueAsNumber : 0;
+  const value = Number(input?.value ?? 0);
+
+  console.log(input?.value);
 
   return (
     <div className="form-control">
