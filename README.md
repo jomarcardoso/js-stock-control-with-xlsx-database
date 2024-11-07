@@ -9,14 +9,13 @@
 - [Google APIs Node.js Client](https://googleapis.dev/nodejs/googleapis/latest/sheets/index.html#authentication-and-authorization)
 - [Google spreadsheets API](https://developers.google.com/sheets/api/guides/values)
 - [Authentication and credentials](https://developers.google.com/workspace/guides/manage-credentials)
-- Native light and dark modes
+- [Native light and dark modes](https://css-tricks.com/come-to-the-light-dark-side/)
 - [System.css](https://projects.dutchcelt.com/system.css/)
 
 ## Documents
 
 - [Create access credentials](https://developers.google.com/workspace/guides/create-credentials)
 - [Google Sheets API Overview](https://developers.google.com/sheets/api/guides/concepts)
-- [Come to the light-dark() Side](https://css-tricks.com/come-to-the-light-dark-side/)
 - [System Color Overview](https://codepen.io/dutchcelt/pen/ExBYzrx)
 
 ## Codes

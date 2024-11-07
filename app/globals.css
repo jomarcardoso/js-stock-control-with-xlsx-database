@@ -5,7 +5,7 @@
 /* @import './styles/styles.css'; */
 
 html {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 body {
@@ -77,8 +77,8 @@ body {
   }
 
   .tr:has(input:checked) {
-    background-color: var(--system-selected-item);
-    color: var(--system-selected-item-text);
+    background-color: var(--system-interactive-color);
+    color: var(--system-canvas-text-inverted);
   }
 
   .th {
@@ -99,7 +99,7 @@ body {
   }
 
   .bar {
-    background-color: var(--system-canvas);
+    background-color: var(--system-surface-color);
     border-top: var(--system-stroke-medium) solid var(--system-stroke-color);
   }
 

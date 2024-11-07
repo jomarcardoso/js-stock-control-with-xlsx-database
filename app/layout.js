@@ -30,6 +30,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <h1>Controle de estoque</h1>
+
+        <p>
+          Para iniciar pressione o botão abaixo e autorize o acesso aos dados da
+          planilha.
+        </p>
         <GoogleLogin>
           <SupplierSheetsProvider>
             <CurrentProvider>

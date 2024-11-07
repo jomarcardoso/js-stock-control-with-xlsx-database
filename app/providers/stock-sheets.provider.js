@@ -58,8 +58,6 @@ export function StockSheetsProvider({ children }) {
   useEffect(() => {
     if (!fetched.current) return;
 
-    console.log(sheets);
-
     updateSheet();
   }, [sheets]);
 

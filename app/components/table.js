@@ -24,8 +24,6 @@ export function Table() {
     return newRows;
   }, [rows, sortedColumn]);
 
-  console.log('sortedTable', current, sortedTable);
-
   return (
     <table className="table-auto w-full">
       <thead className="rounded-lg">
@@ -56,28 +54,36 @@ export function Table() {
       </thead>
 
       <tbody>
-        {sortedTable.map((row, index) => (
-          <tr key={index} className="tr relative">
-            <td className="td">
-              {row[0]}
+        {sortedTable.length ? (
+          sortedTable.map((row, index) => (
+            <tr key={index} className="tr relative">
+              <td className="td">
+                {row[0]}
 
-              <input
-                type="radio"
-                style={{ scale: 'initial' }}
-                className="appearance-none absolute inset-0 border-0 bg-transparent m-0 p-0"
-                onClick={() => current === row[4] && setCurrent(-1)}
-                onChange={() => setCurrent(current === row[4] ? -1 : row[4])}
-                checked={current === row[4]}
-                key={row[0]}
-                name="product"
-                value={row[0]}
-              />
+                <input
+                  type="radio"
+                  style={{ scale: 'initial' }}
+                  className="appearance-none absolute inset-0 border-0 bg-transparent m-0 p-0"
+                  onClick={() => current === row[4] && setCurrent(-1)}
+                  onChange={() => setCurrent(current === row[4] ? -1 : row[4])}
+                  checked={current === row[4]}
+                  key={row[0]}
+                  name="product"
+                  value={row[0]}
+                />
+              </td>
+              <td className="td">{row[1]}</td>
+              <td className="td">{row[2]}</td>
+              <td className="td">{(row[3] || '').replace(',00', '')}</td>
+            </tr>
+          ))
+        ) : (
+          <tr className="tr bg-transparent">
+            <td className="td border-none" colSpan={4}>
+              <p>Aguardando autorização para carregar dados...</p>
             </td>
-            <td className="td">{row[1]}</td>
-            <td className="td">{row[2]}</td>
-            <td className="td">{(row[3] || '').replace(',00', '')}</td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );

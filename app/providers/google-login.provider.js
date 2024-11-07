@@ -117,7 +117,7 @@ export function GoogleLogin({ children }) {
       localStorage.setItem('token', JSON.stringify(gapi.client.getToken()));
 
       document.getElementById('signout_button').style.visibility = 'visible';
-      document.getElementById('authorize_button').innerText = 'Refresh';
+      document.getElementById('authorize_button').innerText = 'atualizar';
     };
 
     if (gapi.client.getToken() === null) {
@@ -165,11 +165,15 @@ export function GoogleLogin({ children }) {
 
   return (
     <GoogleLoginContext.Provider value={user}>
-      <button id="authorize_button" onClick={handleAuthClick}>
-        Authorize
+      <button id="authorize_button" onClick={handleAuthClick} className="mr-2">
+        autorizar
       </button>
-      <button id="signout_button" onClick={handleSignoutClick}>
-        Sign Out
+      <button
+        id="signout_button"
+        onClick={handleSignoutClick}
+        style={{ visibility: 'hidden' }}
+      >
+        sair do usuário
       </button>
 
       {/* <pre id="content" style={{ whiteSpace: 'pre-wrap' }}></pre> */}

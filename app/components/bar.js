@@ -31,7 +31,7 @@ export function Bar() {
   };
 
   return (
-    <div className="bar fixed bottom-0 left-0 w-full px-5 py-2 border-t-2 flex gap-2">
+    <div className="bar fixed bottom-0 left-0 w-full p-2 border-t-2 flex gap-2">
       {!hasCurrent && (
         <>
           <ActionButton type="submit" onClick={handleAdd}>
