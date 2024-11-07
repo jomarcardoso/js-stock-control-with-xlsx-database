@@ -12,6 +12,9 @@
 - [Native light and dark modes](https://css-tricks.com/come-to-the-light-dark-side/)
 - [System.css](https://projects.dutchcelt.com/system.css/)
 
+| ![stock-control-1](https://github.com/user-attachments/assets/879b5ea6-55c2-44c6-8d4d-7325320dce3c) | ![stock-control-2](https://github.com/user-attachments/assets/4884b7d6-a317-48ab-8bd2-0e866512e746) | ![stock-control-3](https://github.com/user-attachments/assets/d1631d49-b0ee-4940-8558-bc5a7a8d38cc) | ![stock-control-4](https://github.com/user-attachments/assets/0b44b671-03ce-404a-b191-f570dcf92088) | ![stock-control-5](https://github.com/user-attachments/assets/9e6e1882-4ae5-4b08-afb9-171cb6a758a1) |
+| --- | --- | --- | --- | --- |
+
 ## Documents
 
 - [Create access credentials](https://developers.google.com/workspace/guides/create-credentials)
