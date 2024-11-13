@@ -9,7 +9,7 @@ export function ActionButton({
 }) {
   const { values = [] } = useContext(SupplierSheetsContext);
   const classes = `py-2 px-3 text-end inline-block ${
-    type === 'submit' ? 'submit-button' : ''
+    type === 'submit' || type === 'select' ? 'submit-button' : ''
   }`;
 
   if (type === 'select') {
@@ -25,6 +25,7 @@ export function ActionButton({
           className="appearance-none absolute inset-0 opacity-0"
           {...props}
         >
+          <option value="">Selecione</option>
           {options}
         </select>
       </label>

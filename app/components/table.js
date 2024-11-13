@@ -15,7 +15,10 @@ export function Table() {
   const sortedTable = useMemo(() => {
     const newRows = [...rows]
       .map((row, index) => [...row, index])
-      .filter((item) => !filter || item[2] === filter);
+      .filter(
+        (item) =>
+          !filter || item[2].toLocaleLowerCase() === filter.toLocaleLowerCase(),
+      );
 
     newRows.sort((a, b) => {
       const aValue = a[sortedColumn];
