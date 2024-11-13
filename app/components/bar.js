@@ -5,6 +5,7 @@ import { EditingContext } from '../providers/editing.provider';
 import { CurrentContext } from '../providers/current.provider';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { SortContext } from '../providers/sort.provider';
+import { FilterContext } from '../providers/filter.provider';
 
 export function Bar() {
   const { current, setCurrent } = useContext(CurrentContext);
@@ -12,6 +13,7 @@ export function Bar() {
   const { setEditing } = useContext(EditingContext);
   const { sheets, setSheets } = useContext(StockSheetsContext);
   const { setSort } = useContext(SortContext);
+  const { filter, setFilter } = useContext(FilterContext);
 
   const handleRemove = () => {
     if (confirm(`Você quer apagar ${sheets[current][0]}?`)) {
@@ -30,6 +32,10 @@ export function Bar() {
     setEditing(true);
   };
 
+  const handleFilterBySupplier = ({ target }) => {
+    setFilter(target.value);
+  };
+
   return (
     <div className="bar fixed bottom-0 left-0 w-full p-2 border-t-2 flex gap-2">
       {!hasCurrent && (
@@ -39,6 +45,18 @@ export function Bar() {
             <br />
             PRODUTO
           </ActionButton>
+
+          {!filter ? (
+            <ActionButton type="select" onChange={handleFilterBySupplier}>
+              FILTRAR POR
+              <br />
+              FORNECEDOR
+            </ActionButton>
+          ) : (
+            <ActionButton description={filter} onClick={() => setFilter('')}>
+              REMOVER FILTRO
+            </ActionButton>
+          )}
 
           {/* <ActionButton type="submit" description="ordenado por nome" onClick={handleSort}>
             ORDENAR

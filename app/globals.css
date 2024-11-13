@@ -103,6 +103,23 @@ body {
     border-top: var(--system-stroke-medium) solid var(--system-stroke-color);
   }
 
+  .button {
+    font: inherit;
+    font-size: var(--system-font-size-m);
+    font-family: var(--system-font-family-interactive);
+
+    display: inline-flex;
+    padding: var(--system-spacing-interactive);
+    text-align: center;
+    text-decoration: none;
+    background: var(--system-button-face);
+    color: var(--system-button-text);
+    white-space: nowrap;
+    border: var(--system-stroke-thin) solid var(--system-button-border);
+    border-radius: var(--system-radius);
+    font-weight: var(--system-font-weight-semibold);
+  }
+
   .submit-button {
     background: var(--system-interactive-color);
     color: var(--system-canvas-text-inverted);

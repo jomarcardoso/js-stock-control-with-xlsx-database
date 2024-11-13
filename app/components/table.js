@@ -3,15 +3,19 @@ import { useContext, useMemo } from 'react';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { CurrentContext } from '../providers/current.provider';
 import { SortContext } from '../providers/sort.provider';
+import { FilterContext } from '../providers/filter.provider';
 
 export function Table() {
   const { current, setCurrent } = useContext(CurrentContext);
   const { sheets } = useContext(StockSheetsContext);
   const rows = Array.isArray(sheets) ? sheets : [];
   const { sortedColumn, setSortedColumn } = useContext(SortContext);
+  const { filter } = useContext(FilterContext);
 
   const sortedTable = useMemo(() => {
-    const newRows = [...rows].map((row, index) => [...row, index]);
+    const newRows = [...rows]
+      .map((row, index) => [...row, index])
+      .filter((item) => !filter || item[2] === filter);
 
     newRows.sort((a, b) => {
       const aValue = a[sortedColumn];
@@ -22,7 +26,7 @@ export function Table() {
     });
 
     return newRows;
-  }, [rows, sortedColumn]);
+  }, [rows, sortedColumn, filter]);
 
   return (
     <table className="table-auto w-full">

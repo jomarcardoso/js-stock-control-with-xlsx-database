@@ -7,6 +7,8 @@ import { SupplierSheetsProvider } from './providers/supplier-sheets.provider';
 import { EditingProvider } from './providers/editing.provider';
 import { CurrentProvider } from './providers/current.provider';
 import { SortProvider } from './providers/sort.provider';
+import { LogProvider } from './providers/log.provider';
+import { FilterProvider } from './providers/filter.provider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -36,17 +38,21 @@ export default function RootLayout({ children }) {
           Para iniciar pressione o botão abaixo e autorize o acesso aos dados da
           planilha.
         </p>
-        <GoogleLogin>
-          <SupplierSheetsProvider>
-            <CurrentProvider>
-              <EditingProvider>
-                <SortProvider>
-                  <StockSheetsProvider>{children}</StockSheetsProvider>
-                </SortProvider>
-              </EditingProvider>
-            </CurrentProvider>
-          </SupplierSheetsProvider>
-        </GoogleLogin>
+        <LogProvider>
+          <GoogleLogin>
+            <SupplierSheetsProvider>
+              <CurrentProvider>
+                <EditingProvider>
+                  <SortProvider>
+                    <FilterProvider>
+                      <StockSheetsProvider>{children}</StockSheetsProvider>
+                    </FilterProvider>
+                  </SortProvider>
+                </EditingProvider>
+              </CurrentProvider>
+            </SupplierSheetsProvider>
+          </GoogleLogin>
+        </LogProvider>
       </body>
     </html>
   );

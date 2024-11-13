@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { GoogleLoginContext } from './google-login.provider';
 import { DEFAULT_LIST_DISPATCH } from '../types';
+import { LogContext } from './log.provider';
 
 export const StockSheetsContext = createContext({
   sheets: [],
@@ -15,6 +16,7 @@ export function StockSheetsProvider({ children }) {
   const fetched = useRef(false);
   const user = useContext(GoogleLoginContext);
   const [sheets, setSheets] = useState([]);
+  const { log, setLog } = useContext(LogContext);
 
   async function getSheets() {
     let response;
@@ -25,7 +27,11 @@ export function StockSheetsProvider({ children }) {
         range: 'estoque!A2:E',
       });
     } catch (err) {
-      document.getElementById('content').innerText = err.message;
+      // document.getElementById('content').innerText = err.message;
+      setLog(
+        `${log}
+        ${JSON.stringify(err.result.error.message)}`,
+      );
       return;
     }
 
