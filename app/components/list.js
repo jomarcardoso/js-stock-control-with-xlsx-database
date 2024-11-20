@@ -8,7 +8,6 @@ export function List() {
     <ul>
       {values.map((value, index) => (
         <li className="relative" key={index}>
-          {/* {value}{' '} */}
           <input type="text" placeholder={value} defaultValue={value} />
         </li>
       ))}
