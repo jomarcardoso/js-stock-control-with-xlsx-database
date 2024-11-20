@@ -9,6 +9,7 @@ import { CurrentProvider } from './providers/current.provider';
 import { SortProvider } from './providers/sort.provider';
 import { LogProvider } from './providers/log.provider';
 import { FilterProvider } from './providers/filter.provider';
+import { TabProvider } from './providers/tab.provider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -42,13 +43,15 @@ export default function RootLayout({ children }) {
           <GoogleLogin>
             <SupplierSheetsProvider>
               <CurrentProvider>
-                <EditingProvider>
-                  <SortProvider>
-                    <FilterProvider>
-                      <StockSheetsProvider>{children}</StockSheetsProvider>
-                    </FilterProvider>
-                  </SortProvider>
-                </EditingProvider>
+                <TabProvider>
+                  <EditingProvider>
+                    <SortProvider>
+                      <FilterProvider>
+                        <StockSheetsProvider>{children}</StockSheetsProvider>
+                      </FilterProvider>
+                    </SortProvider>
+                  </EditingProvider>
+                </TabProvider>
               </CurrentProvider>
             </SupplierSheetsProvider>
           </GoogleLogin>

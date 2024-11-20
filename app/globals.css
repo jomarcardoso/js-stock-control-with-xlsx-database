@@ -125,4 +125,23 @@ body {
     color: var(--system-canvas-text-inverted);
     border: var(--system-stroke-thin) solid var(--system-accent-color);
   }
+
+  .tabs {
+    @apply flex relative;
+  }
+
+  .tab {
+    border: 0;
+    padding: 0;
+
+    summary {
+      margin: 0;
+    }
+
+    &::details-content {
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
 }

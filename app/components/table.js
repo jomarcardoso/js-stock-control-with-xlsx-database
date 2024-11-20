@@ -81,7 +81,7 @@ export function Table() {
               </td>
               <td className="td">{row[1]}</td>
               <td className="td">{row[2]}</td>
-              <td className="td">{(row[3] || '').replace(',00', '')}</td>
+              <td className="td">{String(row[3] || '').replace(',00', '')}</td>
             </tr>
           ))
         ) : (

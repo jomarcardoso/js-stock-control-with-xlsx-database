@@ -6,12 +6,14 @@ import { CurrentContext } from '../providers/current.provider';
 import { StockSheetsContext } from '../providers/stock-sheets.provider';
 import { SortContext } from '../providers/sort.provider';
 import { FilterContext } from '../providers/filter.provider';
+import { SupplierSheetsContext } from '../providers/supplier-sheets.provider';
 
 export function Bar() {
   const { current, setCurrent } = useContext(CurrentContext);
   const hasCurrent = current !== -1;
   const { setEditing } = useContext(EditingContext);
   const { sheets, setSheets } = useContext(StockSheetsContext);
+  const { values } = useContext(SupplierSheetsContext);
   const { setSort } = useContext(SortContext);
   const { filter, setFilter } = useContext(FilterContext);
 
@@ -57,6 +59,12 @@ export function Bar() {
               REMOVER FILTRO
             </ActionButton>
           )}
+
+          {/* <ActionButton type="submit" onClick={handleAddSupplier}>
+            ADICIONAR
+            <br />
+            FORNECEDOR
+          </ActionButton> */}
 
           {/* <ActionButton type="submit" description="ordenado por nome" onClick={handleSort}>
             ORDENAR
