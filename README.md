@@ -2,6 +2,8 @@
 
 [Demo](https://jomarcardoso.github.io/js-stock-control-with-xlsx-database/)
 
+Use Google spreadsheets API to save and restore data.
+
 ## What is it made?
 
 - Next.js
